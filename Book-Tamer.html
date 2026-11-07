@@ -1600,7 +1600,18 @@ window.startStudyCutscene=async onBlack=>{
 window.addEventListener('keydown',event=>{if(transitioning){event.preventDefault();event.stopImmediatePropagation();return}if(state.screen==='cutscene'&&event.code==='Escape'&&!uiBlocked()){event.preventDefault();keys.clear();window.BookMenu.home()}},true);
 })();
 
-</script><script>
+</script>
+<script>
+/* One input path for every narrative scene. Menus and explicit controls keep their own actions. */
+(()=>{const editing='input,textarea,select,[contenteditable="true"]';const controls='button,a,[role="button"],'+editing+',.modal,.study-toolbar,.road-toolbar,.touch-pad';
+function blocked(){return uiBlocked()||state.inventory||window.BookControls?.capturing||document.getElementById('scene-curtain')?.classList.contains('running')}
+function advance(){if(blocked())return false;if(state.screen==='cutscene')return StudyMonologue.advance();if(state.screen==='road'&&window.RoadEncounter?.active){RoadEncounter.advance();return true}if(state.screen==='game'&&state.dialog){action();return true}return false}
+document.addEventListener('click',event=>{if(event.button!==0||event.defaultPrevented||event.target.closest?.(controls))return;if(advance()){event.preventDefault();event.stopImmediatePropagation()}},true);
+document.addEventListener('keydown',event=>{if(!['Space','Enter'].includes(event.code)||event.ctrlKey||event.altKey||event.metaKey||event.target.closest?.(editing)||blocked())return;const active=(state.screen==='cutscene')||(state.screen==='road'&&window.RoadEncounter?.active)||(state.screen==='game'&&state.dialog);if(!active)return;event.preventDefault();event.stopImmediatePropagation();if(!event.repeat)advance()},true);
+})();
+
+</script>
+<script>
 /* Only original user-supplied frames 2, 3, 4. No generated inbetweens, rig or limb deformation. */
 (()=>{const sourceFrames=[2,3,4],count=sourceFrames.length,labels=['DOWN','PASSING','CONTACT'];function renderer(){const mix=document.createElement('canvas');mix.width=256;mix.height=384;const mc=mix.getContext('2d');return function(ctx,image,x,y,scale=1,facing=1,position=0,soft=false){const phase=((position%count)+count)%count,frame=Math.floor(phase),next=(frame+1)%count,t=Math.max(0,Math.min(1,(phase-frame-.12)/.88)),blend=soft?t*t*(3-2*t):0;ctx.save();ctx.translate(x,y);ctx.scale(facing*scale,scale);if(blend>0){mc.clearRect(0,0,256,384);mc.globalCompositeOperation='source-over';mc.globalAlpha=1-blend;mc.drawImage(image,frame*256,0,256,384,0,0,256,384);mc.globalCompositeOperation='lighter';mc.globalAlpha=blend;mc.drawImage(image,next*256,0,256,384,0,0,256,384);mc.globalAlpha=1;mc.globalCompositeOperation='source-over';ctx.drawImage(mix,-128,-363)}else ctx.drawImage(image,frame*256,0,256,384,-128,-363,256,384);ctx.restore();return frame}}function drawGroundShadow(ctx,x,y,scale=.81,facing=1){const k=scale/.81,f=Math.max(-1,Math.min(1,facing)),depth=Math.sqrt(Math.max(0,1-f*f)),bx=-f,bz=-depth,contact=x+12*f*k,feet=y-1*k;ctx.save();ctx.transform(72*k*bx,28*k*bz,-15*k*bz,8*k*bx,contact+62*k*bx,feet+24*k*bz);const cast=ctx.createRadialGradient(0,0,0,0,0,1);cast.addColorStop(0,'rgba(1,3,7,0.45)');cast.addColorStop(.5,'rgba(1,3,7,0.25)');cast.addColorStop(1,'rgba(2,5,10,0)');ctx.fillStyle=cast;ctx.fillRect(-1,-1,2,2);ctx.restore();ctx.save();ctx.translate(contact,feet);ctx.scale((32+4*depth)*k,5.5*k);const foot=ctx.createRadialGradient(0,0,0,0,0,1);foot.addColorStop(0,'rgba(1,3,7,0.65)');foot.addColorStop(.45,'rgba(2,5,10,0.3)');foot.addColorStop(1,'rgba(2,5,10,0)');ctx.fillStyle=foot;ctx.fillRect(-1,-1,2,2);ctx.restore()}window.SheetWalk={drawGroundShadow,labels,sourceFrames,count,createRenderer:renderer,walkFPS:4.25,runFPS:8};})();
 
@@ -1842,15 +1853,6 @@ window.RoadScene={get encounter(){return {active:RoadEncounter.active,page:RoadE
 })();
 
 </script>
-<script>
-/* One input path for every narrative scene. Menus and explicit controls keep their own actions. */
-(()=>{const editing='input,textarea,select,[contenteditable="true"]';const controls='button,a,[role="button"],'+editing+',.modal,.study-toolbar,.road-toolbar,.touch-pad';
-function blocked(){return uiBlocked()||state.inventory||window.BookControls?.capturing||document.getElementById('scene-curtain')?.classList.contains('running')}
-function advance(){if(blocked())return false;if(state.screen==='cutscene')return StudyMonologue.advance();if(state.screen==='road'&&window.RoadEncounter?.active){RoadEncounter.advance();return true}if(state.screen==='game'&&state.dialog){action();return true}return false}
-document.addEventListener('click',event=>{if(event.button!==0||event.defaultPrevented||event.target.closest?.(controls))return;if(advance()){event.preventDefault();event.stopImmediatePropagation()}},true);
-document.addEventListener('keydown',event=>{if(!['Space','Enter'].includes(event.code)||event.ctrlKey||event.altKey||event.metaKey||event.target.closest?.(editing)||blocked())return;const active=(state.screen==='cutscene')||(state.screen==='road'&&window.RoadEncounter?.active)||(state.screen==='game'&&state.dialog);if(!active)return;event.preventDefault();event.stopImmediatePropagation();if(!event.repeat)advance()},true);
-})();
 
-</script>
 </body>
 </html>
