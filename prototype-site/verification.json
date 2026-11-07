@@ -1,0 +1,15 @@
+{
+  "revision": "bilingual catalog and standalone import",
+  "catalog_bytes": 404388,
+  "game_version": "0.65 unchanged",
+  "game_sha256": "908e85528c104b128c1249c30827eb45aa0038c0c04c54e7ce0417d431cf6aa5",
+  "checks": [
+    "site.cjs PASS",
+    "language.cjs PASS",
+    "pages.py PASS",
+    "import_prototype.py PASS"
+  ],
+  "visual_review": "RU/EN desktop/mobile; language buttons and real game",
+  "runtime_external_dependencies": 0,
+  "publication_status": "prepared locally; not uploaded to GitHub"
+}

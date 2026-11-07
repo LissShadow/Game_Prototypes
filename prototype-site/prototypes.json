@@ -1,0 +1,36 @@
+[
+  {
+    "id": "book-tamer",
+    "title": {
+      "ru": "Book Tamer",
+      "en": "Book Tamer"
+    },
+    "version": "0.65",
+    "category": {
+      "ru": "Словесное приключение",
+      "en": "Word adventure"
+    },
+    "description": {
+      "ru": "Ночная дорога, ожившие книги и магия слов. Начните историю Дэмиана.",
+      "en": "A night-time journey, living books and the magic of words. Begin Damian’s story."
+    },
+    "image": "assets/book-tamer-cover.webp",
+    "file": "Book-Tamer.html",
+    "tags": {
+      "ru": [
+        "История",
+        "Магия",
+        "Поиск слов"
+      ],
+      "en": [
+        "Story",
+        "Magic",
+        "Word search"
+      ]
+    },
+    "languages": [
+      "ru",
+      "en"
+    ]
+  }
+]

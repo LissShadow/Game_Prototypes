@@ -1,0 +1,36 @@
+# Local original game art/source project; the standalone game is published instead.
+/heartbound-word/
+
+# Dependencies, environments and caches
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.cache/
+.npm/
+.local/
+.playwright-cli/
+.pytest_cache/
+
+# Generated deployment copies (the built root index.html IS intentionally tracked)
+_site/
+site-output/
+*.candidate.webp
+
+# Secrets and machine-specific files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.sudo_as_admin_successful
+
+# Temporary logs and visual checks
+*.log
+/site-*-check.png
+/site-*-check.jpg
