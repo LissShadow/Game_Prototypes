@@ -32,5 +32,39 @@
       "ru",
       "en"
     ]
+  },
+  {
+    "id": "echo",
+    "title": {
+      "ru": "Echo",
+      "en": "Echo"
+    },
+    "category": {
+      "ru": "Хоррор-лабиринт",
+      "en": "Horror maze"
+    },
+    "description": {
+      "ru": "В темноте каждый шаг опасен. Исследуйте лабиринты с помощью эха и избегайте тех, кто слышит вас.",
+      "en": "Every step is dangerous in the dark. Explore mazes using echoes and evade those who can hear you."
+    },
+    "image": "assets/echo-cover.webp",
+    "file": "games/echo/index.html",
+    "tags": {
+      "ru": [
+        "Хоррор",
+        "Эхолокация",
+        "Лабиринт"
+      ],
+      "en": [
+        "Horror",
+        "Echolocation",
+        "Maze"
+      ]
+    },
+    "languages": [
+      "ru",
+      "en"
+    ],
+    "version": "0.27"
   }
 ]
